@@ -32,11 +32,13 @@ public class KnifeMagnetArea : MonoBehaviour {
 	void OnTriggerStay2D(Collider2D collision) {
 		GameObject target = collision.gameObject;
 		KnifeIron knife_iron = target.GetComponentInChildren<KnifeIron>();
+		
 
 		if (target.tag == "Player" && Input.GetButtonDown("Fire2")) {
 			Collect_Magnet();
 		}
 		if (target.tag == "Knife") {
+			Debug.Log("sdasd");
 			current_knifes++;
 			Destroy(target);
 		}

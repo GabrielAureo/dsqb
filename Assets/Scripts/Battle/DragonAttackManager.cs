@@ -23,6 +23,9 @@ public class DragonAttackManager : MonoBehaviour {
 	[SerializeField]
 	float interval_between_attacks = 2f;
 
+	[SerializeField]
+	GameObject dragonAttack_fireball_exclamation;
+
 	void Start() {
 		player = HushPuppy.safeFindComponent("Player", "Player") as Player;
 
@@ -82,11 +85,12 @@ public class DragonAttackManager : MonoBehaviour {
 
 	IEnumerator Attack_Throw_Fireball(int quantity) {
 		dragon.Set_Turn_Speed_Dampener(1.2f);
-
+		dragonAttack_fireball_exclamation.SetActive(true);
 		for (int i = 0; i < quantity; i++) {
-			Attack_Throw_Fireball();
 			yield return new WaitForSeconds(1f);
+			Attack_Throw_Fireball();	
 		}
+		dragonAttack_fireball_exclamation.SetActive(false);
 
 		dragon.Reset_Turn_Speed();
 	}

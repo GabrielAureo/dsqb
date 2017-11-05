@@ -12,6 +12,8 @@ public class KnifeIron : MonoBehaviour {
 	[SerializeField]
 	GameObject mainKnife;
 
+	Collider2D knifeCol;
+
 	void Start () {
 		Set_Magnet(GameObject.FindObjectOfType<KnifeMagnetArea>());
 	}
@@ -35,7 +37,7 @@ public class KnifeIron : MonoBehaviour {
 	public void Set_Magnet(KnifeMagnetArea magnet) {
 		mainKnife.transform.SetParent(this.transform.root);
 		this.magnetArea = magnet;
-		GetComponentInParent<Collider2D>().enabled = true;
+		knifeCol = GetComponentInParent<Collider2D>();
 		rb.WakeUp();
 	}
 
@@ -43,6 +45,8 @@ public class KnifeIron : MonoBehaviour {
 		if (magnetArea == null) {
 			return;
 		}
+
+		knifeCol.enabled = true;
 
 		float magnitude = Mathf.Clamp(rb.velocity.magnitude, 0f, 10f);
 		rb.velocity = rb.velocity.normalized * magnitude;
@@ -54,7 +58,8 @@ public class KnifeIron : MonoBehaviour {
 		float gravityForce = 500f;
 
 		if (magsqr > 0.01f) {
-			rb.AddForce(gravityForce * offset.normalized / magsqr, ForceMode2D.Force);
+			rb.AddForce(gravityForce * offset.normalized, ForceMode2D.Force);
 		}
+
 	}
 }

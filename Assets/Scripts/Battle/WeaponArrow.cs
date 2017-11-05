@@ -9,7 +9,11 @@ public class WeaponArrow : WeaponDeluxe {
 	}
 
 	public override void Register_Hit(GameObject target) {
+		if(already_damaged){
+			return;
+		}
 		target.GetComponentInChildren<Dragon>().Take_Damage_Arrow(this);
+		already_damaged = true;
 		
 		if (destroy_on_contact) {
 			Destroy(this.gameObject);

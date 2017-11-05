@@ -56,6 +56,6 @@ public class DragonAttackFlameTower : DragonAttackDeluxe {
 		tween.SetEase(Ease.InCirc);
 		yield return new WaitForSeconds(0.5f);
 
-		Destroy(this.gameObject);
+		Destroy(this.transform.parent.gameObject);
 	}
 }

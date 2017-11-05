@@ -11,6 +11,8 @@ public class WeaponDeluxe : MonoBehaviour {
 	[SerializeField]
 	protected Rigidbody2D rb;
 
+	public bool already_damaged = false;
+
 	void OnTriggerEnter2D(Collider2D coll) {
 		GameObject target = coll.gameObject;
 		if (target.tag == "Dragon") {
@@ -19,11 +21,17 @@ public class WeaponDeluxe : MonoBehaviour {
 	}
 
 	public virtual void Register_Hit(GameObject target) {
+		if(already_damaged){
+			return;
+		}
+
 		target.GetComponentInChildren<Dragon>().Take_Damage(damage);
+		already_damaged = true;
 
 		if (destroy_on_contact) {
 			Destroy(this.gameObject);
 		}
+		
 	}
 
 	public virtual void Handle_Direction() {

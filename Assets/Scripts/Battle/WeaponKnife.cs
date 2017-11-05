@@ -13,7 +13,11 @@ public class WeaponKnife : WeaponDeluxe {
 	}
 
 	public override void Register_Hit(GameObject target) {
+		if(already_damaged){
+			return;
+		}
 		target.GetComponentInChildren<Dragon>().Take_Damage_Knife(this);
+		already_damaged = true;
 		
 		if (destroy_on_contact) {
 			Destroy_Now();

@@ -67,9 +67,13 @@ public class WeaponSpear : WeaponDeluxe {
 	}
 
 	public override void Register_Hit(GameObject target) {
+		if(already_damaged){
+			return;
+		}
 		if (rb.velocity.sqrMagnitude < 0.1f) {
 			return;
 		}
+		already_damaged = true;
 
 		target.GetComponentInChildren<Dragon>().Take_Damage_Spear(this);
 
@@ -98,9 +102,10 @@ public class WeaponSpear : WeaponDeluxe {
 		sr.sortingOrder = 0;
 		sr.gameObject.tag = gameObject.tag;
 		sr.gameObject.name = "FIXED_SPEAR";
-		Destroy(this.gameObject);
+		
 
 		spearCapture.gameObject.SetActive(true);
 		spearCapture.Initialize();
+		Destroy(this.gameObject);
 	}
 }
