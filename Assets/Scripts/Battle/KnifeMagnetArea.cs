@@ -37,6 +37,14 @@ public class KnifeMagnetArea : MonoBehaviour {
 		if (target.tag == "Player" && Input.GetButtonDown("Fire2")) {
 			Collect_Magnet();
 		}
+		
+	}
+
+	void OnTriggerEnter2D(Collider2D collision)
+	{
+
+		GameObject target = collision.gameObject;
+		KnifeIron knife_iron = target.GetComponentInChildren<KnifeIron>();
 		if (target.tag == "Knife") {
 			Debug.Log("sdasd");
 			current_knifes++;
