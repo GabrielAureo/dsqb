@@ -38,7 +38,7 @@ public class KnifeIron : MonoBehaviour {
 		mainKnife.transform.SetParent(this.transform.root);
 		this.magnetArea = magnet;
 		knifeCol = GetComponentInParent<Collider2D>();
-		rb.WakeUp();
+		rb.isKinematic = false;
 	}
 
 	void Handle_Magnet() {

@@ -5,6 +5,7 @@ using UnityEngine;
 public class WeaponKnife : WeaponDeluxe {
 	[SerializeField]
 	float lifetimeAfterDisappearing = 2f;
+	bool shouldFix = true;
 
 	void Update () {
 		if (!sr.isVisible && !is_destroying) {
@@ -26,11 +27,16 @@ public class WeaponKnife : WeaponDeluxe {
 	}
 
 	public void Fix_Knife_To(GameObject target) {
+		if(shouldFix){
+			shouldFix = false;
+		}else{
+			return;
+		}
 		transform.parent = target.transform;
 		transform.SetAsLastSibling();
 		sr.sortingOrder = 0;
 		rb.velocity = Vector2.zero;
-		rb.Sleep();
+		rb.isKinematic = true;
 
 		if (target.tag == "DragonAttackFireBall") {
 			StartCoroutine(Destroy());
