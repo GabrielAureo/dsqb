@@ -5,7 +5,7 @@ using UnityEngine;
 public class CanFixArrow : MonoBehaviour {
 	void OnTriggerEnter2D(Collider2D coll) {
 		GameObject target = coll.gameObject;
-		//lookingAt(target, this.gameObject);
+		if(!lookingAt(target, this.gameObject)) return;
 		if (target.tag == "Arrow") {
 			target.GetComponentInChildren<WeaponArrow>().Fix_Arrow_To(this.gameObject);
 		}
@@ -18,8 +18,10 @@ public class CanFixArrow : MonoBehaviour {
 			spear.Fix_Spear_To(this.gameObject);
 		}
 	}
+	bool lookingAt(GameObject looker, GameObject target){
+		var v = looker.transform.rotation * Vector3.up;
+		//v = v.normalized;
+		return Vector3.Dot(v,target.transform.position) > 0;
 
-	void lookingAt(GameObject looker, GameObject target){
-		Debug.Log(Vector2.Angle(looker.transform.up, looker.transform.position - target.transform.position));
 	}
 }
