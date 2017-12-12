@@ -100,7 +100,7 @@ public class WeaponSpear : WeaponDeluxe {
 		sr.transform.parent = target.transform;
 		sr.transform.SetAsLastSibling();
 		sr.sortingOrder = 0;
-		sr.gameObject.tag = gameObject.tag;
+		//sr.gameObject.tag = gameObject.tag;
 		sr.gameObject.name = "FIXED_SPEAR";
 		
 

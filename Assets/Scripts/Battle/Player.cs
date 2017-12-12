@@ -57,7 +57,18 @@ public class Player : MonoBehaviour {
 		}
 
 		void Initialize_Properties() {
-			current_weapons = max_spears;
+			switch(current_weapon){
+				case Weapon.SPEAR:
+					current_weapons = max_spears;
+					break;
+				case Weapon.KNIFE:
+					current_weapons = max_knifes;
+					break;
+				default:
+					current_weapons = max_spears;
+					break;	
+			}
+			
 		}
 	#endregion
 
