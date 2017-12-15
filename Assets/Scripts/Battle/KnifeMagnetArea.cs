@@ -13,6 +13,8 @@ public class KnifeMagnetArea : MonoBehaviour {
 
 	int current_knifes;
 
+	GameObject worldCanvas;
+
 	void Start() {
 		// foreach (KnifeIron iron in GameObject.FindObjectsOfType<KnifeIron>()) {
 		// 	iron.Set_Magnet(this);

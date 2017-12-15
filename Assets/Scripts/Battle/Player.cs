@@ -44,6 +44,7 @@ public class Player : MonoBehaviour {
 	public int max_knifes = 3;
 	public int current_weapons;
 
+
 	#region Start
 		void Start() {
 			Initialize_References();

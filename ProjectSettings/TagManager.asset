@@ -64,3 +64,6 @@ TagManager:
   - name: Dragon
     uniqueID: 2609386921
     locked: 0
+  - name: Weapon
+    uniqueID: 495242909
+    locked: 0

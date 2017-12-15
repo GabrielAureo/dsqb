@@ -54,7 +54,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1369184743917106}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 13.944485, y: 6.194985, z: 0}
+  m_LocalPosition: {x: -2.3796003, y: -3.149972, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4696382431303276}
@@ -134,6 +134,7 @@ MonoBehaviour:
   destroy_on_contact: 0
   sr: {fileID: 212998081045277338}
   rb: {fileID: 50235123157982894}
+  already_damaged: 0
   lifetimeAfterDisappearing: 2
 --- !u!114 &114734970443386876
 MonoBehaviour:
@@ -193,8 +194,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 495242909
+  m_SortingLayer: 1
   m_SortingOrder: 2
   m_Sprite: {fileID: 21300000, guid: 972a4b7beabf73b418b57bc9e8e0e925, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
