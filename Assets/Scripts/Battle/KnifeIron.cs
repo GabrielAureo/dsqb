@@ -58,7 +58,7 @@ public class KnifeIron : MonoBehaviour {
 		float gravityForce = 500f;
 
 		if (magsqr > 0.01f) {
-			rb.AddForce(gravityForce * offset.normalized, ForceMode2D.Force);
+			rb.AddForce(gravityForce * offset.normalized / magsqr, ForceMode2D.Force);
 		}
 
 	}

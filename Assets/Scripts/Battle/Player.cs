@@ -39,10 +39,25 @@ public class Player : MonoBehaviour {
 	[HideInInspector]
 	public bool is_capturing_spear = false;
 	[HideInInspector]
+	public bool is_capturing_magnet = false;
+	[HideInInspector]
 	public bool knife_magnet_deployed = false;
 	public int max_spears = 3;
 	public int max_knifes = 3;
 	public int current_weapons;
+
+	[Header("Stamina Values")]
+	[SerializeField]
+	float bow_stamina_depletion = 2f;
+	[SerializeField]
+	float spear_stamina_depletion = 1.5f;
+	[SerializeField]
+	float knife_stamina_depletion = 1.5f;
+	[SerializeField]
+	float stamina_recovery_time = 4f;
+	[SerializeField]
+	float capture_spear_depletion = 4f;
+
 
 
 	#region Start
@@ -159,7 +174,6 @@ public class Player : MonoBehaviour {
 				charge = 0f;
 			}
 		#endregion
-
 		#region Bow
 			void Handle_Weapon_Bow() {
 				if (Input.GetButton("Fire1")) {
@@ -198,6 +212,9 @@ public class Player : MonoBehaviour {
 				Vector2 direction = Vector2.up;
 				direction.x = Mathf.Cos((this.transform.rotation.eulerAngles.z + 90) * Mathf.Deg2Rad);
 				direction.y = Mathf.Sin((this.transform.rotation.eulerAngles.z + 90) * Mathf.Deg2Rad);
+
+				var rot_aux = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+				arrow.transform.rotation = Quaternion.Euler(0f, 0f, rot_aux - 90);
 
 				arrow.GetComponentInChildren<Rigidbody2D>().AddForce(
 					direction.normalized * arrowSpeed,
@@ -268,13 +285,16 @@ public class Player : MonoBehaviour {
 		#endregion
 		#region Knife
 			void Handle_Weapon_Knife() {
-				if (Input.GetButton("Fire1")) {
-					Start_Knife();
+				if (Input.GetButtonDown("Fire1")) {
+					if(stamina >= knife_stamina_depletion){
+						Release_Knife(1f);
+						stamina -= knife_stamina_depletion;
+					}
 				}
 
-				if (Input.GetButtonUp("Fire1")) {
+				/*if (Input.GetButtonUp("Fire1")) {
 					Release_Knife(charge);
-				}
+				}*/
 				
 				if (Input.GetButtonDown("Fire2")) {
 					Put_Knife_Magnet();
@@ -360,11 +380,8 @@ public class Player : MonoBehaviour {
 
 	#region Stamina
 	//stamina variables
-		float bow_stamina_depletion = 2f;
-		float spear_stamina_depletion = 1.5f;
-		float stamina_recovery_time = 4f;
 		Coroutine stamina_recovery = null;
-		float capture_spear_depletion = 4f;
+		
 
 		void Handle_Stamina() {
 			if (is_charging_shot) {
@@ -374,6 +391,7 @@ public class Player : MonoBehaviour {
 				if (current_weapon == Weapon.SPEAR) {
 					stamina -= Time.deltaTime / spear_stamina_depletion;
 				}
+				
 			}
 
 			stamina = Mathf.Clamp(stamina, 0f, 1f);
@@ -386,6 +404,7 @@ public class Player : MonoBehaviour {
 					if (current_weapon == Weapon.SPEAR) {
 						Release_Spear (charge);
 					}
+
 				}
 			}
 			

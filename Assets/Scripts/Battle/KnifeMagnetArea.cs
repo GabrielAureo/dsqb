@@ -14,6 +14,7 @@ public class KnifeMagnetArea : MonoBehaviour {
 	int current_knifes;
 
 	GameObject worldCanvas;
+	MagnetCaptureArea magnetCapture;
 
 	void Start() {
 		// foreach (KnifeIron iron in GameObject.FindObjectsOfType<KnifeIron>()) {
@@ -23,6 +24,7 @@ public class KnifeMagnetArea : MonoBehaviour {
 		UI_text = Instantiate(UI_prefab, HushPuppy.safeFind("Canvas").transform, false).
 			GetComponentInChildren<TextMeshProUGUI>();
 		UI_text.transform.position = Camera.main.WorldToScreenPoint(this.transform.position);
+		
 	}
 
 	void Update() {
@@ -31,7 +33,7 @@ public class KnifeMagnetArea : MonoBehaviour {
 		}
 	}
 
-	void OnTriggerStay2D(Collider2D collision) {
+	/*void OnTriggerStay2D(Collider2D collision) {
 		GameObject target = collision.gameObject;
 		KnifeIron knife_iron = target.GetComponentInChildren<KnifeIron>();
 		
@@ -40,7 +42,7 @@ public class KnifeMagnetArea : MonoBehaviour {
 			Collect_Magnet();
 		}
 		
-	}
+	}*/
 
 	void OnTriggerEnter2D(Collider2D collision)
 	{
@@ -59,7 +61,7 @@ public class KnifeMagnetArea : MonoBehaviour {
 		}
 	}
 
-	void Collect_Magnet() {
+	public void Collect_Magnet() {
 		Player player = GameObject.FindGameObjectWithTag("Player").GetComponentInChildren<Player>();
 		player.Collect_Magnet();
 		player.current_weapons += current_knifes;

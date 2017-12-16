@@ -378,7 +378,7 @@ Prefab:
         type: 2}
     - target: {fileID: 1258256602186000, guid: 3ee0c546d52bd3c46a6e6d4570741550, type: 2}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 212331204666987432, guid: 3ee0c546d52bd3c46a6e6d4570741550,
         type: 2}
@@ -1968,12 +1968,17 @@ Prefab:
     - target: {fileID: 114533682271817844, guid: 7e14db95d9d533b44b041fa052e4dd04,
         type: 2}
       propertyPath: max_knifes
-      value: 10
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 114533682271817844, guid: 7e14db95d9d533b44b041fa052e4dd04,
         type: 2}
       propertyPath: current_weapon
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 114533682271817844, guid: 7e14db95d9d533b44b041fa052e4dd04,
+        type: 2}
+      propertyPath: knife_stamina_depletion
+      value: 0.3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 7e14db95d9d533b44b041fa052e4dd04, type: 2}

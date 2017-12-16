@@ -7,14 +7,12 @@ using DG.Tweening;
 public class MagnetCaptureArea : MonoBehaviour {
 
 	[SerializeField]
-	GameObject spearCapture_prefab;
+	GameObject magnetCapture_prefab;
 	[SerializeField]
-	WeaponSpear spear;
-	[SerializeField]
-	GameObject blood_prefab;
+	KnifeMagnetArea magnet;
 
 	GameObject worldCanvas;
-	Image spearCapture;
+	Image magnetCapture;
 	bool player_on_capture = false;
 	float capture_modifier = 0.5f;
 	Player player;
@@ -23,29 +21,32 @@ public class MagnetCaptureArea : MonoBehaviour {
 		worldCanvas = HushPuppy.safeFind("WorldCanvas");
 		player = HushPuppy.safeFindComponent("Player", "Player") as Player;
 
-		GameObject aux = Instantiate(spearCapture_prefab, worldCanvas.transform, false);
+		GameObject aux = Instantiate(magnetCapture_prefab, worldCanvas.transform, false);
 		aux.transform.position = this.transform.position;
-		spearCapture = aux.GetComponentInChildren<Image>();
+		magnetCapture = aux.GetComponentInChildren<Image>();
 	}
 
+	void  Start(){
+		Initialize();
+	}
 	void Update() {
 		Handle_Fill();
 	}
 
 	void Handle_Fill() {
-		if (spearCapture == null) {
+		if (magnetCapture == null) {
 			return;
 		}
 
-		spearCapture.transform.position = this.transform.position;
+		magnetCapture.transform.position = this.transform.position;
 
 		if (player_on_capture && Input.GetButton("Fire2")) {
 			Update_Fill(1f);
-			player.is_capturing_spear = true;
+			player.is_capturing_magnet = true;
 		}
 		else {
 			Update_Fill(-0.5f);
-			player.is_capturing_spear = false;
+			player.is_capturing_magnet = false;
 		}		
 	}
 
@@ -64,59 +65,59 @@ public class MagnetCaptureArea : MonoBehaviour {
 	}
 
 	void Update_Fill(float modifier) {
-		if (spearCapture == null) {
+		if (magnetCapture == null) {
 			return;
 		}
 		
-		spearCapture.fillAmount += modifier * Time.deltaTime * capture_modifier;
-		spearCapture.fillAmount = Mathf.Clamp(spearCapture.fillAmount, 0f, 1f);
+		magnetCapture.fillAmount += modifier * Time.deltaTime * capture_modifier;
+		magnetCapture.fillAmount = Mathf.Clamp(magnetCapture.fillAmount, 0f, 1f);
 
-		if (spearCapture.fillAmount == 1f) {
-			Collect_Spear();
+		if (magnetCapture.fillAmount == 1f) {
+			Collect_Magnet();
 		}
 	}
 
 	bool collected = false;
 
-	void Collect_Spear() {
+	void Collect_Magnet() {
 		if (collected) {
 			return;
 		}
 
 		collected = true;
-		player.is_capturing_spear = false;
+		player.is_capturing_magnet = false;
 		
 		StartCoroutine(Destroy_Capture());
-		player.Gain_Spear();
+		//player.Gain_Spear();
 	}
 
 	IEnumerator Destroy_Capture() {
 		float wait_time = 0.2f;
 
-		spearCapture.transform.DOScale(
-			spearCapture.transform.localScale * 1.2f,
+		magnetCapture.transform.DOScale(
+			magnetCapture.transform.localScale * 1.2f,
 			wait_time
 		);
 
-		spearCapture.DOColor(
-			HushPuppy.getColorWithOpacity(spearCapture.color, 0f),
+		magnetCapture.DOColor(
+			HushPuppy.getColorWithOpacity(magnetCapture.color, 0f),
 			wait_time
 		);
 
 		yield return new WaitForSeconds(wait_time);
 
-		Destroy(spearCapture.gameObject);
-		player.is_capturing_spear = false;
-		if (spear != null) {
-			Destroy(spear.gameObject);
+		Destroy(magnetCapture.gameObject);
+		player.is_capturing_magnet = false;
+		if (magnet != null) {
+			magnet.Collect_Magnet();
 		}
-		else {
+		/*else {
 			//is fixed in dragon
 			var dragon = GameObject.FindGameObjectWithTag("Dragon");
 			Vector3 blood_pos = (this.transform.position + dragon.transform.position) /2;
 			var blood = Instantiate(blood_prefab, blood_pos, Quaternion.identity);
 			blood.GetComponentInChildren<Blood>().Initialize(3f);
 			Destroy(this.transform.parent.gameObject);
-		}
+		}*/
 	}
 }
